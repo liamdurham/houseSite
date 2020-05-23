@@ -1,0 +1,24 @@
+dl arduino ide
+google esp8266 arduino ide
+find the link and put it in perferences
+flash the 8266 with standardfirmatawifi
+(geekcreit esp-f devkit 4 used NodeMCU 1.0 as the unit to flash)
+
+
+npm install johnny-five, npm install etherport-client
+
+
+
+var board = new five.Board({
+  port: new EtherPortClient({
+    host: "10.0.0.213",  // IP FROM ESP8266 10.0.0.213
+    port: 5001     // whatever, keep em seperate tho           
+  }),
+  timeout: 10000,
+  repl: false
+});
+gets connection to board
+
+then use j5 as instructed
+board.on('ready', () => {
+

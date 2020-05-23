@@ -1,2 +1,6 @@
 # houseSite
-IOT on a website for my new house! howto in api/howto.txt
+IOT on a website for my new house!
+Uses johnny five + etherport for wifi arduinos, angular7/ionic4 for the front end, express api to ping the arduino when pinged by the front end
+
+api/howto.txt for more info on doing it yourself!
+
