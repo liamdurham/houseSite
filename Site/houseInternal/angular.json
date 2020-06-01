@@ -41,7 +41,9 @@
             ],
              "scripts": [
               "./src/assets/threeQ/three.js",
-              "./src/assets/houseAR/init.js",   
+              "./src/assets/houseAR/init.js",
+              "./src/assets/threeQ/OrbitControls.js", 
+              "./src/assets/threeQ/SVGLoader.js"     
             ]
           },
           "configurations": {
