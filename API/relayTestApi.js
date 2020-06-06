@@ -10,18 +10,13 @@ const RELAY_PIN = 5;
 var alreadyProcessingGarageDoor = 0;
 var lolTest;
 
-var board = new five.Board({
-  port: new EtherPortClient({
-    host: "10.0.0.213",  // IP ESP8266 10.0.0.213
-    port: 5001                
-  }),
-  timeout: 30000,
-  debug: true,    
-  repl: false
+var garageBoard;
+
+
+app.listen(port, () => {
+           console.log(`API Ready at ` + port);
+           connectGarageBoard();
 });
-
-
-app.listen(port, () => console.log(`API Ready at ` + port));
 app.use(cors())
 app.get('/open', (req, res) => {
     if (alreadyProcessingGarageDoor == 0)
@@ -36,12 +31,47 @@ app.get('/open', (req, res) => {
         }
 });
 
-function openGarageDoorRelay(req, res){
-  board.pinMode(RELAY_PIN, five.Pin.OUTPUT);
+function connectGarageBoard()
+{
+    garageBoard = new five.Board({
+      port: new EtherPortClient({
+        host: "10.0.0.213",  // IP OF ESP8266/ nodemcuv1 10.0.0.213
+        port: 5001           // PORT CONFIGED IN wificonfig.h     
+      }),
+      timeout: 30000,
+      debug: true,    
+      repl: false
+    });
+    
+    garageBoard.on('ready', () => {
+        garageBoard.info("Board", "Ready steady freddy");
+    });
+
+    garageBoard.on('close', () => {
+        console.log('Connection closed. Attempting to reconnect in 30 seconds');
+        setTimeout( () => { connectGarageBoard() } , 30000);  
+    });
+
+    garageBoard.on("info", function(event) {
+      /*
+        Event {
+          type: "info"|"warn"|"fail",
+          timestamp: Time of event in milliseconds,
+          class: name of relevant component class,
+          message: message [+ ...detail]
+        }
+      */
+      console.log("%s Garage Board INFO: %s", event.class, event.message);
+    });
+}
+
+function openGarageDoorRelay(req, res)
+{
+  garageBoard.pinMode(RELAY_PIN, five.Pin.OUTPUT);
   // the Led class was acting hinky, so just using Pin here
   const pin = five.Pin(RELAY_PIN);
   let value = 0;
-  board.info("Board", "Relay on");
+  garageBoard.info("Board", "Relay on");
   pin.high();
   setTimeout( () => { closeGarageDoorRelay(pin, req, res) } , 500);  
 }
@@ -49,18 +79,18 @@ function openGarageDoorRelay(req, res){
 function closeGarageDoorRelay(pin, req, res)
 {
     pin.low();
-    board.info("Board", "Relay off");
+    garageBoard.info("Board", "Relay off");
     res.send(JSON.stringify( { message : 'relay triggered!' } ) );
     alreadyProcessingGarageDoor = 0;
 }
 
 app.get('/info', (req, res) => {
     console.log('supplying states info!');
-    board.pinMode(RELAY_PIN, five.Pin.OUTPUT);
+    garageBoard.pinMode(RELAY_PIN, five.Pin.OUTPUT);
     const pin = five.Pin(RELAY_PIN);
     pin.query(function(state) {
         console.log(state);
-        board.info("Board", "Relay state:" + state.value);
+        garageBoard.info("Board", "Relay state:" + state.value);
         res.send(JSON.stringify( { message : 'state: '+state.value } ));
     });
 });
@@ -76,20 +106,3 @@ app.get('/status', (req, res) => {
     res.send('Relay Status: ');
 });
 */
-
-
-board.on('ready', () => {
-    board.info("Board", "Ready steady freddy");
-});
-
-board.on("info", function(event) {
-  /*
-    Event {
-      type: "info"|"warn"|"fail",
-      timestamp: Time of event in milliseconds,
-      class: name of relevant component class,
-      message: message [+ ...detail]
-    }
-  */
-  console.log("%s INFO: %s", event.class, event.message);
-});
