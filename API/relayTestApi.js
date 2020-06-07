@@ -6,19 +6,22 @@ var Gpio = require('onoff').Gpio;
 
 const app = express();
 const port = 3000;
-const RELAY_PIN = 5;
+const GARAGE_RELAY_PIN = 0;
+const GARAGE_DOOR_PIN = 4;
 var alreadyProcessingGarageDoor = 0;
 var lolTest;
 
-var garageBoard;
+var garageBoard, garageDoorSwitch, garageDoorBool;
 
 
 app.listen(port, () => {
            console.log(`API Ready at ` + port);
            connectGarageBoard();
 });
-app.use(cors())
+app.use(cors());
+
 app.get('/open', (req, res) => {
+    console.log('garage door called');
     if (alreadyProcessingGarageDoor == 0)
         {
              alreadyProcessingGarageDoor = 1;
@@ -45,6 +48,19 @@ function connectGarageBoard()
     
     garageBoard.on('ready', () => {
         garageBoard.info("Board", "Ready steady freddy");
+        garageDoorSwitch = new five.Switch(GARAGE_DOOR_PIN);
+        garageDoorRelay = new five.Switch(GARAGE_DOOR_PIN);
+
+            garageDoorSwitch.on("open", () => 
+            {
+                console.log("garage open!");
+                garageDoorBool = 1;
+            });
+            garageDoorSwitch.on("close", () => 
+            {
+                console.log("garage closed!");
+                garageDoorBool = 0;
+            });
     });
 
     garageBoard.on('close', () => {
@@ -67,10 +83,8 @@ function connectGarageBoard()
 
 function openGarageDoorRelay(req, res)
 {
-  garageBoard.pinMode(RELAY_PIN, five.Pin.OUTPUT);
-  // the Led class was acting hinky, so just using Pin here
-  const pin = five.Pin(RELAY_PIN);
-  let value = 0;
+  garageBoard.pinMode(GARAGE_RELAY_PIN, five.Pin.OUTPUT);
+  const pin = five.Pin(GARAGE_RELAY_PIN);
   garageBoard.info("Board", "Relay on");
   pin.high();
   setTimeout( () => { closeGarageDoorRelay(pin, req, res) } , 500);  
@@ -86,13 +100,8 @@ function closeGarageDoorRelay(pin, req, res)
 
 app.get('/info', (req, res) => {
     console.log('supplying states info!');
-    garageBoard.pinMode(RELAY_PIN, five.Pin.OUTPUT);
-    const pin = five.Pin(RELAY_PIN);
-    pin.query(function(state) {
-        console.log(state);
-        garageBoard.info("Board", "Relay state:" + state.value);
-        res.send(JSON.stringify( { message : 'state: '+state.value } ));
-    });
+    var respToReq = [{data: garageDoorBool, message:  'garage'}];
+    res.send(JSON.stringify(respToReq));
 });
 
 /*

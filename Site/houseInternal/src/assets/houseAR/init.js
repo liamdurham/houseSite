@@ -16,7 +16,7 @@ window.onload = function ()
     globalAspect = window.screen.width/window.screen.height.toFixed(5);
     if(window.devicePixelRatio > 1)
     {
-        globalAspect = window.devicePixelRatio;
+        globalAspect = 1;
     }
     holderDiv = document.getElementById("houseModel");
     worldCanvas = document.getElementById("houseCanvas");   
@@ -25,16 +25,19 @@ window.onload = function ()
 
 window._gotSomething = function (infolol) 
 {
-    infolol.forEach(function(unit){
-        if(unit.data == '1') 
-        {  
-            createWarningSphere(houseLocs[unit.message],unit.message);  
-        }
-        if(unit.data == '0')
-        {
-            hideWarningSphere(unit.message);   
-        }
-    });
+    if(globalAspect)
+    {
+        infolol.forEach(function(unit){
+            if(unit.data == '1') 
+            {  
+                createWarningSphere(houseLocs[unit.message],unit.message);  
+            }
+            if(unit.data == '0')
+            {
+                hideWarningSphere(unit.message);   
+            }
+        });
+    }
 }
 
 var houseLocs = 
@@ -135,6 +138,12 @@ function createFloor()
 
 function createWarningSphere(pos, name)
 {
+    console.log(pos);
+    console.log(name);
+    if(name == null || pos == null)
+    {
+        return;
+    }
     var selectedObject = scene.getObjectByName(name);
     if (selectedObject)
     {
@@ -143,7 +152,7 @@ function createWarningSphere(pos, name)
     }
     var holderObj = new THREE.Object3D();
     var sphereGeom =  new THREE.SphereBufferGeometry( 16, 16, 16 );
-    var redMaterial = new THREE.MeshBasicMaterial( { color: '#FF8C00', transparent: true, wireframe: true, opacity: 0.05 } );
+    var redMaterial = new THREE.MeshBasicMaterial( { color: '#FF0000', transparent: true, wireframe: true, opacity: 0.5 } );
     var sphere = new THREE.Mesh( sphereGeom, redMaterial );
     sphere.position.copy(pos);
 

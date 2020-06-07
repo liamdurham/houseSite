@@ -12,42 +12,16 @@ export class Tab1Page {
   
   ngOnInit()
   {
-  
+    this.ContinousPolling();
   }
+  
+  public statusOfSensors: any[];  
 
-   public dataObj = [ 
-       {data: '0', message: 'master'},
-       {data: '1', message:  'garage'},
-       {data: '1', message:  'livingRm'},
-       {data: '1', message:  'topPorch'},
-       {data: '1', message:  'office'},
-       {data: '1', message:  'frontDoor'},
-       {data: '0', message:  'bedrm'},
-       {data: '0', message:  'stairs'},
-       {data: '0', message:  'bsmtOffice'},
-       {data: '0', message:  'bsmtMain'},
-       {data: '1', message:  'bsmtMud'},
-       {data: '1', message:  'bsmtPorch'},
-       ];
-       
-   public dataObj2 = [ 
-       {data: '0', message: 'master'},
-       {data: '0', message:  'garage'},
-       {data: '0', message:  'livingRm'},
-       {data: '0', message:  'topPorch'},
-       {data: '0', message:  'office'},
-       {data: '0', message:  'frontDoor'},
-       {data: '0', message:  'bedrm'},
-       {data: '0', message:  'stairs'},
-       {data: '0', message:  'bsmtOffice'},
-       {data: '0', message:  'bsmtMain'},
-       {data: '0', message:  'bsmtMud'},
-       {data: '0', message:  'bsmtPorch'},
-       ];
-
-  public openGarageDoor()
+      
+    
+  public toggleGarageDoor()
   { 
-    this.http.get('http://10.0.0.32:3000/open',{}).subscribe( data => {
+    this.http.get('http://10.0.0.249:3000/open',{}).subscribe( data => {
     console.log(data);
     console.log(data['message']);
     });
@@ -55,18 +29,22 @@ export class Tab1Page {
   
   public infoGarageDoor()
   { 
-    this.http.get('http://10.0.0.32:3000/info',{}).subscribe( data => {
+    this.http.get('http://10.0.0.249:3000/info',{}).subscribe( data => {
     console.log(data);
+    this.statusOfSensors = <Array<any>>data;
+    this.pollUpdates();
     });
+  }
+  
+  public ContinousPolling(){
+    this.infoGarageDoor();
+    setTimeout(() => {this.ContinousPolling()}, 10000);
   }
   
   public pollUpdates()
   {
-    window['_gotSomething'](this.dataObj);
+    console.log(this.statusOfSensors);
+    window['_gotSomething'](this.statusOfSensors);
   }
   
-  public fakeUpdates()
-  {
-    window['_gotSomething'](this.dataObj2);
-  }
 }
