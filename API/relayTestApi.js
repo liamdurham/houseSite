@@ -107,7 +107,7 @@ app.get('/info', (req, res) => {
 
 const button = new Gpio(5, 'in');
 console.log(button.direction()); 
-console.log('watching gpio5');
+console.log('watching gpio5 - rev4');
 /*
 button.watch((err, value) => {
   if (err) {
@@ -120,7 +120,7 @@ loopWatchButton();
 function loopWatchButton()
 {
     console.log(button.readSync());
-    setTimeout(loopWatchButton, 500);
+    setTimeout(loopWatchButton, 1000);
 }
 
 process.on('SIGINT', _ => {
