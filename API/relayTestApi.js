@@ -105,8 +105,8 @@ app.get('/info', (req, res) => {
 });
 
 
-const button = new Gpio(5, 'in', 'both');
- 
+const button = new Gpio(5, 'in');
+console.log(button.direction()); 
 console.log('watching gpio5');
 /*
 button.watch((err, value) => {
