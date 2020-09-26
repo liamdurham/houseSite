@@ -105,7 +105,7 @@ app.get('/info', (req, res) => {
 });
 
 
-const switchIn = new Gpio( '17', 'in', 'falling' );
+const switchIn = new Gpio( '17', 'in', 'both' );
 
 console.log('watching gpio17 - rev1');
 
@@ -113,17 +113,16 @@ switchIn.watch((err, value) => {
   if (err) {
     throw err;
   }
-  console.log(value);
+  console.log('Switch states change occured');
 });
  
-/*
 loopWatchButton();
 function loopWatchButton()
 {
     console.log(switchIn.readSync());
     setTimeout(loopWatchButton, 1000);
 }
-*/
+
 process.on('SIGINT', _ => {
   switchIn.unexport();
 });
