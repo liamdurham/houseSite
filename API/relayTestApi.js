@@ -105,8 +105,7 @@ app.get('/info', (req, res) => {
 });
 
 
-const led = new Gpio(17, 'out');
-const button = new Gpio(4, 'in', 'both');
+const button = new Gpio(5, 'in', 'both');
  
 button.watch((err, value) => {
   if (err) {
@@ -116,7 +115,6 @@ button.watch((err, value) => {
 });
  
 process.on('SIGINT', _ => {
-  led.unexport();
   button.unexport();
 });
 
