@@ -44,7 +44,7 @@ var houseLocs =
     {
         master: new THREE.Vector3(-100,25,-75),
         garage: new THREE.Vector3(-100,25,50),
-        kitchenDing: new THREE.Vector3(0,25,40),
+        kitchenDing: new THREE.Vector3(0,25,30),
         livingRm: new THREE.Vector3(0,25,-25),
         topPorch: new THREE.Vector3(-25,25,-75),
         office: new THREE.Vector3(125,25,25),
@@ -53,7 +53,7 @@ var houseLocs =
         stairs: new THREE.Vector3(75,0,-75),
         bsmtOffice: new THREE.Vector3(125,-30,-75),
         bsmtMain: new THREE.Vector3(10,-30,-50),
-        bsmtMud: new THREE.Vector3(-100,-30,-25),
+        bsmtMud: new THREE.Vector3(-100,-30,-45),
         bsmtPorch: new THREE.Vector3(-100,-30,-75)
     };
 
