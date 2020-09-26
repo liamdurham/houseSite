@@ -109,7 +109,6 @@ app.get('/info', (req, res) => {
         {data: frontDoorIn.readSync(), message:  'frontDoor'},
         {data: bsmtOfficeIn.readSync(), message:  'bsmtOffice'}, //bsmt office windows
         {data: bsmtMudIn.readSync(), message:  'bsmtMud'}, //basement door + windows
-        {data: topPorchIn.readSync(), message:  'topPorch'}, //laundry window?? idkwhy
         {data: kitchenDingIn.readSync(), message:  'kitchenDing'} //kitchen window and dining window
     ];
     res.send(JSON.stringify(respToReq));
@@ -117,23 +116,29 @@ app.get('/info', (req, res) => {
 
 
 const frontDoorIn = new Gpio( '17', 'in', 'both' );
-const bsmtOfficeIn = new Gpio( '27', 'in', 'both' );
+const kitchenDingIn = new Gpio( '27', 'in', 'both' );
 const bsmtMudIn = new Gpio( '22', 'in', 'both' );
-const topPorchIn = new Gpio( '10', 'in', 'both' );
-const kitchenDingIn = new Gpio( '9', 'in', 'both' );
+const bsmtOfficeIn = new Gpio( '10', 'in', 'both' );
+const buzzerOut = new Gpio( '9', 'out');
 console.log('lolDiyBrinks v1.8');
 
 
-/*
+
 frontDoorIn.watch((err, value) => {
   if (err) 
   {
     console.log(err);    
   }
-  console.log('Door state change occured');
+  console.log('Front door Opened/Closed');
+  buzzerOut.writeSync('high');
+  setTimeout( () => { turnOffBuzzer() } , 500); 
 });
 
-
+function turnOffBuzzer()
+{
+    buzzerOut.writeSync('low');
+}
+/*
 loopWatchButton();
 function loopWatchButton()
 {
