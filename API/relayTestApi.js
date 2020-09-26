@@ -119,12 +119,7 @@ button.watch((err, value) => {
 loopWatchButton();
 function loopWatchButton()
 {
-    button.read((err, value) => {
-      if (err) {
-        throw err;
-      }
-      console.log(value);
-    });
+    console.log(button.readSync());
     setTimeout(loopWatchButton, 500);
 }
 
