@@ -112,7 +112,9 @@ const frontDoorIn = new Gpio( '17', 'in', 'both' );
 
 console.log('watching gpio17 - rev1');
 
-switchIn.watch((err, value) => {
+
+/*
+frontDoorIn.watch((err, value) => {
   if (err) 
   {
     console.log(err);    
@@ -120,7 +122,7 @@ switchIn.watch((err, value) => {
   console.log('Door state change occured');
 });
 
-/*
+
 loopWatchButton();
 function loopWatchButton()
 {
