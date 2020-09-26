@@ -104,6 +104,26 @@ app.get('/info', (req, res) => {
     res.send(JSON.stringify(respToReq));
 });
 
+
+const led = new Gpio(17, 'out');
+const button = new Gpio(4, 'in', 'both');
+ 
+button.watch((err, value) => {
+  if (err) {
+    throw err;
+  }
+  console.log(value);
+});
+ 
+process.on('SIGINT', _ => {
+  led.unexport();
+  button.unexport();
+});
+
+
+
+
+
 /*
 app.get('/status', (req, res) => {
     console.log('Getting Relay Status!');
