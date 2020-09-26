@@ -107,6 +107,7 @@ app.get('/info', (req, res) => {
 
 const button = new Gpio(5, 'in', 'both');
  
+console.log('watching gpio5');
 button.watch((err, value) => {
   if (err) {
     throw err;
