@@ -44,6 +44,7 @@ var houseLocs =
     {
         master: new THREE.Vector3(-100,25,-75),
         garage: new THREE.Vector3(-100,25,50),
+        kitchenDing: new THREE.Vector3(0,25,40),
         livingRm: new THREE.Vector3(0,25,-25),
         topPorch: new THREE.Vector3(-25,25,-75),
         office: new THREE.Vector3(125,25,25),

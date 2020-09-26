@@ -21,7 +21,7 @@ export class Tab1Page {
     
   public toggleGarageDoor()
   { 
-    this.http.get('http://10.0.0.249:3000/open',{}).subscribe( data => {
+    this.http.get('http://10.0.0.32:3000/open',{}).subscribe( data => {
     console.log(data);
     console.log(data['message']);
     });
@@ -29,7 +29,7 @@ export class Tab1Page {
   
   public infoGarageDoor()
   { 
-    this.http.get('http://10.0.0.249:3000/info',{}).subscribe( data => {
+    this.http.get('http://10.0.0.32:3000/info',{}).subscribe( data => {
     console.log(data);
     this.statusOfSensors = <Array<any>>data;
     this.pollUpdates();

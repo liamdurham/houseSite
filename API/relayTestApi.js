@@ -13,6 +13,10 @@ var lolTest;
 
 var garageBoard, garageDoorSwitch, garageDoorBool;
 
+const { networkInterfaces } = require('os');
+
+const nets = networkInterfaces();
+console.log(nets);
 
 app.listen(port, () => {
            console.log(`API Ready at ` + port);
@@ -102,15 +106,22 @@ app.get('/info', (req, res) => {
     console.log('supplying states info!');
     var respToReq = [
         {data: garageDoorBool, message:  'garage'},
-        {data: frontDoorIn.readSync(), message:  'frontDoor'}
+        {data: frontDoorIn.readSync(), message:  'frontDoor'},
+        {data: bsmtOfficeIn.readSync(), message:  'bsmtOffice'}, //bsmt office windows
+        {data: bsmtMudIn.readSync(), message:  'bsmtMud'}, //basement door + windows
+        {data: topPorchIn.readSync(), message:  'topPorch'}, //laundry window?? idkwhy
+        {data: kitchenDingIn.readSync(), message:  'kitchenDing'} //kitchen window and dining window
     ];
     res.send(JSON.stringify(respToReq));
 });
 
 
 const frontDoorIn = new Gpio( '17', 'in', 'both' );
-
-console.log('watching gpio17 - rev1');
+const bsmtOfficeIn = new Gpio( '27', 'in', 'both' );
+const bsmtMudIn = new Gpio( '22', 'in', 'both' );
+const topPorchIn = new Gpio( '10', 'in', 'both' );
+const kitchenDingIn = new Gpio( '9', 'in', 'both' );
+console.log('lolDiyBrinks v1.8');
 
 
 /*
@@ -132,7 +143,11 @@ function loopWatchButton()
 */
 
 process.on('SIGINT', _ => {
-  switchIn.unexport();
+  frontDoorIn.unexport();
+  bsmtOfficeIn.unexport();  
+  bsmtMudIn.unexport(); 
+  topPorchIn.unexport(); 
+  kitchenDingIn.unexport(); 
 });
 
 
