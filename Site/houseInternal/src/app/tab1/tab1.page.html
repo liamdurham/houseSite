@@ -29,10 +29,7 @@
                     <ion-label color="primary">Currently Open:</ion-label>
                 </ion-list-header>
                 <ion-item *ngFor="let unit of this.statusOfSensors">
-                    <ion-label *ngIf="unit.data == 1" color="danger">
-                      {{unit.message}}
-                    </ion-label>
-                    <ion-label *ngIf="unit.data == 0" color="primary">
+                    <ion-label *ngIf="unit.data == 0" color="danger">
                       {{unit.message}}
                     </ion-label>
                 </ion-item>

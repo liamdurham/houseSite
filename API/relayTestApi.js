@@ -54,12 +54,12 @@ function connectGarageBoard()
             garageDoorSwitch.on("open", () => 
             {
                 console.log("garage open!");
-                garageDoorBool = 1;
+                garageDoorBool = 0;
             });
             garageDoorSwitch.on("close", () => 
             {
                 console.log("garage closed!");
-                garageDoorBool = 0;
+                garageDoorBool = 1; 
             });
     });
 
@@ -100,28 +100,34 @@ function closeGarageDoorRelay(pin, req, res)
 
 app.get('/info', (req, res) => {
     console.log('supplying states info!');
-    var respToReq = [{data: garageDoorBool, message:  'garage'}];
+    var respToReq = [
+        {data: garageDoorBool, message:  'garage'},
+        {data: frontDoorIn.readSync(), message:  'frontDoor'}
+    ];
     res.send(JSON.stringify(respToReq));
 });
 
 
-const switchIn = new Gpio( '17', 'in', 'both' );
+const frontDoorIn = new Gpio( '17', 'in', 'both' );
 
 console.log('watching gpio17 - rev1');
 
 switchIn.watch((err, value) => {
-  if (err) {
-    throw err;
+  if (err) 
+  {
+    console.log(err);    
   }
-  console.log('Switch states change occured');
+  console.log('Door state change occured');
 });
- 
+
+/*
 loopWatchButton();
 function loopWatchButton()
 {
-    console.log(switchIn.readSync());
+    console.log(frontDoorIn.readSync());
     setTimeout(loopWatchButton, 1000);
 }
+*/
 
 process.on('SIGINT', _ => {
   switchIn.unexport();

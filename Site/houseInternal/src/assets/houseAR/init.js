@@ -28,11 +28,11 @@ window._gotSomething = function (infolol)
     if(globalAspect)
     {
         infolol.forEach(function(unit){
-            if(unit.data == '1') 
+            if(unit.data == '0') 
             {  
                 createWarningSphere(houseLocs[unit.message],unit.message);  
             }
-            if(unit.data == '0')
+            if(unit.data == '1')
             {
                 hideWarningSphere(unit.message);   
             }
