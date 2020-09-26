@@ -129,14 +129,14 @@ frontDoorIn.watch((err, value) => {
   {
     console.log(err);    
   }
-  console.log('Front door Opened/Closed');
-  buzzerOut.writeSync('high');
+  console.log('Front door Opened/Closed, trying to buzzzz');
+  buzzerOut.writeSync(1);
   setTimeout( () => { turnOffBuzzer() } , 500); 
 });
 
 function turnOffBuzzer()
 {
-    buzzerOut.writeSync('low');
+    buzzerOut.writeSync(0);
 }
 
 loopWatchButton();
