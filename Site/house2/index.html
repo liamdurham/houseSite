@@ -10,12 +10,13 @@
 <body>
   <div class="demo-frame">
 
-        <button onclick='makeCred()' >makeCred</button>
+        <button onclick='testOpen()' >open Garage</button>
     </div>
 
   <script>
       const axios = require('axios');
         // Make a request for a user with a given ID
+      function testOpen(){
         axios.get('http://10.0.0.32:3000/open')
           .then(function (response) {
            
@@ -25,6 +26,7 @@
          
             console.log(error);
           });
+      }
   </script>
 
 </body>
