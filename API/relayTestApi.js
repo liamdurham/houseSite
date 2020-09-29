@@ -138,14 +138,14 @@ function turnOffBuzzer()
 {
     buzzerOut.writeSync(0);
 }
-
+/*
 loopWatchButton();
 function loopWatchButton()
 {
     console.log(kitchenDingIn.readSync());
     setTimeout(loopWatchButton, 1000);
 }
-
+*/
 
 process.on('SIGINT', _ => {
   frontDoorIn.unexport();
