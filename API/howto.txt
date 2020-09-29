@@ -22,3 +22,13 @@ gets connection to board
 then use j5 as instructed
 board.on('ready', () => {
 
+
+
+to enable public website opening:
+go to noip.com
+sign up, get a dns,
+install the auto-update of the dns as per thier instructions on your rpi,
+port-forward 80 on your router so you can access your website (i used house-2 to mke it super simple)
+now your express node.js api can be hit from external. 
+ez life, ez api
+
