@@ -38,7 +38,7 @@ export class Tab1Page {
   
   public ContinousPolling(){
     this.infoGarageDoor();
-    setTimeout(() => {this.ContinousPolling()}, 10000);
+    setTimeout(() => {this.ContinousPolling()}, 5000);
   }
   
   public pollUpdates()
