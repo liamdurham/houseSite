@@ -10,6 +10,7 @@ const GARAGE_RELAY_PIN = 0;
 const GARAGE_DOOR_PIN = 4;
 var alreadyProcessingGarageDoor = 0;
 var lolTest;
+var frontDoorStatus;
 
 var garageBoard, garageDoorSwitch, garageDoorBool;
 
@@ -145,7 +146,7 @@ frontDoorIn.watch((err, value) => {
     if (err) {
         console.log(err);
     }
-    console.log('Front door Opened/Closed, trying to buzzzz');
+    console.log('Front door Opened/Closed, trying to buzzzz. State = ' + frontDoorIn.readSync());
     buzzerOut.writeSync(1);
     setTimeout(() => {
         turnOffBuzzer()
