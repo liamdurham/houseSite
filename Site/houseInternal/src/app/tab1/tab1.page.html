@@ -1,43 +1,69 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      House Apppppp
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            House Apppppp
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button (click)='toggleGarageDoor()'>
-      <ion-icon name="arrow-up-circle"> </ion-icon>
-    </ion-fab-button>
-  </ion-fab>   
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button (click)='toggleGarageDoor()'>
+            <ion-icon name="arrow-up-circle"> </ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     <ion-card>
         <ion-grid>
-        <ion-row>    
-        </ion-row>   
-        <ion-row> 
-        <ion-col size="9">    
-            <div id='houseModel' class='w-100 h-100'>
-                <canvas id='houseCanvas' style="width:450px;height:450px;">
-                </canvas>
-            </div>
-        </ion-col>    
-        <ion-col size="3">
-            <ion-list>
-                <ion-list-header>
-                    <ion-label color="primary">Currently Open:</ion-label>
-                </ion-list-header>
-                <ion-item *ngFor="let unit of this.statusOfSensors">
-                    <ion-label *ngIf="unit.data == 0" color="danger">
-                      {{unit.message}}
-                    </ion-label>
-                </ion-item>
-            </ion-list>
-        </ion-col>   
-        </ion-row>    
-       </ion-grid> 
+            <ion-row>
+            </ion-row>
+            <ion-row>
+                <ion-col size="9">
+                    <div id='houseModel' class='w-100 h-100'>
+                        <canvas id='houseCanvas' style="width:450px;height:450px;">
+                        </canvas>
+                    </div>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-list>
+                        <ion-list-header>
+                            <ion-label color="primary">Currently Open:</ion-label>
+                        </ion-list-header>
+                        <div *ngFor="let unit of this.statusOfSensors">
+                            <ion-item *ngIf="unit.data == 0" color="danger">
+                                {{unit.message}}
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-card>
-    <svg id='Main' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640"><defs><path d="M321.98 146.19L321.98 173.17L397.38 173.17L397.38 146.19L477.54 146.19L477.54 278.73L449.76 278.73L444.21 289.05L420.4 289.05L410.87 278.73L393.41 278.73L393.41 305.71L359.29 264.44L282.3 264.44L282.3 250.95L240.24 250.95L240.24 286.67L168.81 286.67L168.81 146.19L321.98 146.19Z" id="h2rdRj9z"></path></defs><g><g><g><g><use xlink:href="#h2rdRj9z" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="1"></use></g></g></g></g></svg>
-    <svg id='Basement' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640"><defs><path d="M168.81 217.37L240.68 217.37L240.68 250.45L282.03 250.45L282.03 263.98L359.47 263.98L359.47 250.45L422.63 250.45L422.63 263.98L477.54 263.98L477.54 146.19L397.07 146.19L397.07 176.77L380.53 176.77L248.2 176.77L240.68 176.77L240.68 146.19L168.81 146.19L168.81 217.37Z" id="i21FnIkZFf"></path></defs><g><g><g><g><use xlink:href="#i21FnIkZFf" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="1"></use></g></g></g></g></svg>
+    <svg id='Main' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640">
+        <defs>
+            <path d="M321.98 146.19L321.98 173.17L397.38 173.17L397.38 146.19L477.54 146.19L477.54 278.73L449.76 278.73L444.21 289.05L420.4 289.05L410.87 278.73L393.41 278.73L393.41 305.71L359.29 264.44L282.3 264.44L282.3 250.95L240.24 250.95L240.24 286.67L168.81 286.67L168.81 146.19L321.98 146.19Z" id="h2rdRj9z"></path>
+        </defs>
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <use xlink:href="#h2rdRj9z" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
+    <svg id='Basement' version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640">
+        <defs>
+            <path d="M168.81 217.37L240.68 217.37L240.68 250.45L282.03 250.45L282.03 263.98L359.47 263.98L359.47 250.45L422.63 250.45L422.63 263.98L477.54 263.98L477.54 146.19L397.07 146.19L397.07 176.77L380.53 176.77L248.2 176.77L240.68 176.77L240.68 146.19L168.81 146.19L168.81 217.37Z" id="i21FnIkZFf"></path>
+        </defs>
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <use xlink:href="#i21FnIkZFf" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1" stroke-opacity="1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </svg>
 </ion-content>
