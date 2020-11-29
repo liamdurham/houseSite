@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ folder }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large"> Hi </ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <div id="container">
+        <strong class="capitalize">{{ folder }}</strong>
+        <div *ngIf='this.amITrue'> its true </div>
+        <ion-button (click)='setTrue()'> Click </ion-button>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item>
+                        <ion-label> Name </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label> Date </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label> Location </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label> Remove? </ion-label>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngFor='let emp of emps'>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>{{emp.Name}}</ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>{{emp.Date}}</ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-label>{{emp.Location}}</ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col>
+                    <ion-item>
+                        <ion-button (click)='removeEmp(emp)'> Remove Employee </ion-button>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-button (click)='getDoors()'>
+            doors?
+        </ion-button>
+    </div>
+
+</ion-content>
