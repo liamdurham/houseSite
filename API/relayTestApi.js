@@ -153,6 +153,27 @@ frontDoorIn.watch((err, value) => {
     }, 500);
 });
 
+kitchenDingIn.watch((err, value) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log('Kitchen windows Opened/Closed State = ' + kitchenDingIn.readSync());
+});
+
+bsmtOfficeIn.watch((err, value) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log('Bsmt Office windows Opened/Closed State = ' + bsmtOfficeIn.readSync());
+});
+
+bsmtMudIn.watch((err, value) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log('Bsmt Mud Room Opened/Closed State = ' + bsmtMudIn.readSync());
+});
+
 function turnOffBuzzer() {
     buzzerOut.writeSync(0);
 }
