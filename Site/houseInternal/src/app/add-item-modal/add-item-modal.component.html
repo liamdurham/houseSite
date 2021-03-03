@@ -1,0 +1,14 @@
+<ion-list>
+    <ion-item>
+        <ion-label>Task Name: </ion-label>
+        <ion-input slot='end' placeholder='dishes?' id='itemName'></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Child of: </ion-label>
+        <ion-select value="none" id='itemParent'>
+            <ion-select-option value="none"> </ion-select-option>
+            <ion-select-option *ngFor='let item of this.currentItems' value="{{item.Name}}">{{item.Name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-button (click)='onAddItemConfirmed()'>Add It!</ion-button>
+</ion-list>
