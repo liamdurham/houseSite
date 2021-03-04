@@ -1,0 +1,15 @@
+.searchInput {
+    color: var(--ion-color-steel);
+
+    input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--ion-color-veryLightBlue);
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.titleField {
+    margin-left: 8px;
+}

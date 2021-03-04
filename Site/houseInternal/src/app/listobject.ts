@@ -3,5 +3,9 @@ export interface Listobject {
     Status: boolean,
     Color:  string,
     Children: Listobject[],
-    Parent: string
+    Parent: string,
+    Visible: boolean,
+    AssignedDate: string,
+    AssignedTo:  string,
+    ChildrenVisible: boolean
 };

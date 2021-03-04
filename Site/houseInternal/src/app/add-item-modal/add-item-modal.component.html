@@ -1,17 +1,43 @@
 <ion-list>
     <ion-item>
         <ion-label>Task Name: </ion-label>
-        <ion-input slot='end' placeholder='dishes?' id='itemName'></ion-input>
+
+        <ion-input slot='end' type='text' placeholder='dishes?' id='itemName' minlength='5' maxlength='32'></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Child of: </ion-label>
+        <ion-label>Assigned To: </ion-label>
+
+
+        <ion-select value="none" (ionChange)='comparePersonSelected($event)' id='itemAssignedTo'>
+            <ion-select-option value="none"> </ion-select-option>
+            <ion-select-option *ngFor='let person of this.currentPersons' value="{{person.Name}}"> {{person.Name}}</ion-select-option>
+            <ion-select-option value='new'>
+                <ion-icon name="add">New Person?</ion-icon>
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf='newPersonFlag'>
+        <ion-label>Person's Name: </ion-label>
+        <ion-input slot='end' type='text' placeholder='nathan?' id='newPersonName' minlength='5' maxlength='32'></ion-input>
+        <ion-button slot='end' (click)='onAddNewPerson()'> Go! </ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-label>Stacked Under: </ion-label>
+
+
         <ion-select value="none" id='itemParent'>
             <ion-select-option value="none"> </ion-select-option>
             <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: currentItems }"></ng-container>
         </ion-select>
     </ion-item>
-    <ion-button (click)='onAddItemConfirmed()'>Add It!</ion-button>
+
+    <ion-text slot='end' id='taskNameWarning' color='danger'></ion-text>
+
+    <ion-item>
+        <ion-button (click)='onAddItemConfirmed()'>Add It!</ion-button>
+    </ion-item>
 </ion-list>
+
 
 
 <ng-template #recursiveListTmpl let-list="list">

@@ -1,4 +1,5 @@
 var camera, scene, renderer, controls, holderDiv, globalAspect, worldCanvas;
+
 window.onerror = function (message, file, line) {
     console.log('An error occured at line ' + line + ' of ' + file + ': ' + message);
 };
@@ -11,15 +12,7 @@ window.onload = function()
 */
 
 // wait for window load, then make the user camera div
-window.onload = function () {
-    globalAspect = window.screen.width / window.screen.height.toFixed(5);
-    if (window.devicePixelRatio > 1) {
-        globalAspect = 1;
-    }
-    holderDiv = document.getElementById("houseModel");
-    worldCanvas = document.getElementById("houseCanvas");
-    initializeRender();
-};
+
 
 window._gotSomething = function (infolol) {
     if (globalAspect) {
@@ -31,6 +24,18 @@ window._gotSomething = function (infolol) {
                 hideWarningSphere(unit.message);
             }
         });
+    }
+}
+
+window._waitTilTabIsCorrect = function () {
+    if (document.getElementById("houseModel")) {
+        globalAspect = window.screen.width / window.screen.height.toFixed(5);
+        if (window.devicePixelRatio > 1) {
+            globalAspect = 1;
+        }
+        holderDiv = document.getElementById("houseModel");
+        worldCanvas = document.getElementById("houseCanvas");
+        initializeRender();
     }
 }
 
@@ -175,16 +180,16 @@ function hideWarningSphere(name) {
 }
 
 function createMainFloor() {
-    const svgMarkup = document.getElementById('Main').outerHTML;
-    const loader = new THREE.SVGLoader();
-    const svgData = loader.parse(svgMarkup);
+    var svgMarkup = document.getElementById('MainFloor').outerHTML;
+    var loader = new THREE.SVGLoader();
+    var svgData = loader.parse(svgMarkup);
     var svgGroup = new THREE.Group();
     // Group we'll use for all SVG paths
     // When importing SVGs paths are inverted on Y axis
     // it happens in the process of mapping from 2d to 3d coordinate system
     //svgGroup.scale.y *= -1;
 
-    const material = new THREE.MeshPhongMaterial({
+    var material = new THREE.MeshPhongMaterial({
         color: '#00FFFF',
         specular: 0x111111,
         shininess: 5
@@ -238,7 +243,7 @@ function createMainFloor() {
     centerObj(svgGroup);
     scene.add(svgGroup);
     camera.lookAt(svgGroup);
-    var svgElem = document.getElementById('Main');
+    var svgElem = document.getElementById('MainFloor');
     svgElem.parentNode.removeChild(svgElem);
 }
 

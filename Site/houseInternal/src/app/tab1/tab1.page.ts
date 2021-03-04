@@ -13,8 +13,11 @@ export class Tab1Page {
   ngOnInit()
   {
     this.ContinousPolling();
+    window['_waitTilTabIsCorrect']();  
   }
   
+  
+    
   public statusOfSensors: any[];  
 
       
@@ -45,6 +48,7 @@ export class Tab1Page {
   {
     console.log(this.statusOfSensors);
     window['_gotSomething'](this.statusOfSensors);
+    
   }
   
 }

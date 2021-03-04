@@ -14,10 +14,12 @@ export class Tab2Page {
    constructor(public modalCtrl: ModalController, public stor: StorageService) {}
 
    ngOnInit(){
+       this.stor.loadDataFromLocal();
        this.itemList = this.stor.currentItemList;
    }
     
    public itemList: Listobject[] = []; 
+   public showUnfinishedFlag: boolean = false;    
     
    async presentModal() 
     {
@@ -33,18 +35,18 @@ export class Tab2Page {
     public getCurrentItems()
     {
         this.itemList = this.stor.currentItemList;
-        console.log(this.itemList);
+       
     }
     
     public getColorForItem(status)
     {
         if(status  == false)
         {
-            return 'danger';
+            return 'dark';
         }
         else
         {
-            return 'success';
+            return 'medium';
         }
     }
     
@@ -54,4 +56,39 @@ export class Tab2Page {
         this.stor.toggleItemStatus(item);
         this.getCurrentItems();
     }
+    
+    public removeItem(item)
+    {
+        this.stor.removeItem(item);   
+        this.getCurrentItems();
+    }
+    
+    public cascadeItem(item)
+    {
+        this.stor.cascadeItem(item);
+        this.getCurrentItems();
+    }
+    
+    public onSearch(ev)
+    {
+        this.stor.hideUnsearched(ev.srcElement.value);
+    }
+    
+    public filterChanged(ev)
+    {
+        console.log(ev);
+        if(ev.srcElement.value == 'unfinished')
+        {
+            this.stor.showOnlyUnfinished();
+        }
+        else if(ev.srcElement.value == 'finished')
+        {
+            this.stor.showOnlyFinished();   
+        }
+        else
+        {
+            this.stor.showAll(); 
+        }
+    }
+    
 }
