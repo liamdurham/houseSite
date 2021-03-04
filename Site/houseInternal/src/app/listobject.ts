@@ -2,6 +2,6 @@ export interface Listobject {
     Name: string,
     Status: boolean,
     Color:  string,
-    Children: any[],
+    Children: Listobject[],
     Parent: string
 };

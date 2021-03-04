@@ -19,7 +19,13 @@
     </ion-fab>
 
     <ion-list>
-        <ion-grid *ngFor='let item of this.itemList'>
+        <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: itemList }"></ng-container>
+    </ion-list>
+
+
+
+    <ng-template #recursiveListTmpl let-list="list">
+        <ion-grid *ngFor='let item of list'>
             <ion-row>
                 <ion-col>
                     <ion-title>
@@ -30,17 +36,16 @@
                     <ion-checkbox (click)='changeItemStatus(item)' [(ngModel)]="item[Status]"></ion-checkbox>
                 </ion-col>
             </ion-row>
-            <ion-row *ngFor='let subItem of item.Children'>
-                <ion-col>
-                    <ion-title>
-                        <ion-label color={{getColorForItem(subItem.Status)}}> >>> {{subItem.Name}}</ion-label>
-                    </ion-title>
-                </ion-col>
-                <ion-col>
-                    <ion-checkbox (click)='changeItemStatus(subItem)' [(ngModel)]="subItem[Status]"></ion-checkbox>
-                </ion-col>
-            </ion-row>
+
+            <div *ngIf='item.Children.length > 0'>
+                <ion-row>
+                    <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.Children }">
+                    </ng-container>
+                </ion-row>
+            </div>
+
         </ion-grid>
-    </ion-list>
+    </ng-template>
+
 
 </ion-content>

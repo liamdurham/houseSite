@@ -15,6 +15,7 @@ export class AddItemModalComponent implements OnInit {
 
   ngOnInit() {
       this.currentItems = this.stor.currentItemList;
+      console.log(this.currentItems);
   }
   public currentItems: Listobject[] = [];
     

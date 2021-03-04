@@ -7,8 +7,19 @@
         <ion-label>Child of: </ion-label>
         <ion-select value="none" id='itemParent'>
             <ion-select-option value="none"> </ion-select-option>
-            <ion-select-option *ngFor='let item of this.currentItems' value="{{item.Name}}">{{item.Name}}</ion-select-option>
+            <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: currentItems }"></ng-container>
         </ion-select>
     </ion-item>
     <ion-button (click)='onAddItemConfirmed()'>Add It!</ion-button>
 </ion-list>
+
+
+<ng-template #recursiveListTmpl let-list="list">
+    <div *ngFor='let item of list'>
+        <ion-select-option value="{{item.Name}}">{{item.Name}}</ion-select-option>
+        <div *ngIf='item.Children.length > 0'>
+            <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.Children }">
+            </ng-container>
+        </div>
+    </div>
+</ng-template>

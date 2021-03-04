@@ -21,16 +21,17 @@ export class StorageService {
                     };
         if(parent !== 'none' )
         {
-            this.currentItemList.forEach(function(item)
+            var result;
+            for(var  i = 0; i <  this.currentItemList.length; i += 1) 
             {
-                console.log(item.Name);
-                console.log(parent);
-                if(parent == item.Name && newItem.Name !== parent)
-                {    
-                    console.log('Item now a child');
-                    item.Children.push(newItem);
+                result = this.findNode(parent, this.currentItemList[i]);
+                if(result)
+                {
+                    result.Children.push(newItem);
                 }
-            });
+            } 
+            console.log(result);
+            return;   
         }
         else
         {
@@ -41,25 +42,51 @@ export class StorageService {
     
     public toggleItemStatus(item)
     {
-            this.currentItemList.forEach(function(obj)
-            {   
-                if(obj.Name == item.Name) 
+        var result;
+        for(var  i = 0; i <  this.currentItemList.length; i ++) 
+        {
+           result = this.findNode(item.Name, this.currentItemList[i]);
+            console.log(result);
+            if(result)
+            {
+                if(result.Name == item.Name)
                 {
-                    obj.Status =  !obj.Status;
+                    result.Status = !result.Status;
                     return;
                 }
-                else
+            }
+        } 
+        return;     
+    }
+    
+    
+    public findNode(name, currentNode) 
+    {
+        var i,
+            currentChild,
+            result;
+        if(currentNode)
+        {
+            if (name == currentNode.Name) 
+            {
+                return currentNode;
+            } 
+        else 
+        {
+            for (i = 0; i <= currentNode.Children.length; i ++) 
+            {
+                currentChild = currentNode.Children[i];
+                
+                result = this.findNode(name, currentChild);
+
+                if (result) 
                 {
-                    if(obj.Name  == item.Parent)
-                    {
-                        obj.Children.forEach(function(child)
-                        {
-                            child.Status = !child.Status;
-                            return;
-                        })
-                    }
+                    return result;
                 }
-            });
-        
+            }
+           result = false;   
+        }
+        result = false;  
+      }
     }
 }
