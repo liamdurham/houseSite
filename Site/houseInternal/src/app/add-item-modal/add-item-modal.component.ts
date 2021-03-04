@@ -45,6 +45,14 @@ export class AddItemModalComponent implements OnInit
     this.newPersonFlag = false;  
   }
     
+  public removePerson()
+  {
+    var removedPersonName = (document.getElementById("peopleRemover") as HTMLTextAreaElement).value;
+    (document.getElementById("peopleRemover") as HTMLTextAreaElement).value = '';
+    this.stor.removePerson(removedPersonName);
+    this.currentPersons = this.stor.currentPersons;
+  }    
+    
   public onAddItemConfirmed()
   {   
     var newObjName = (document.getElementById("itemName") as HTMLTextAreaElement).value;

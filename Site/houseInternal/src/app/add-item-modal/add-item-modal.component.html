@@ -9,9 +9,10 @@
 
 
         <ion-select value="none" (ionChange)='comparePersonSelected($event)' id='itemAssignedTo'>
-            <ion-select-option value="none"> </ion-select-option>
-            <ion-select-option *ngFor='let person of this.currentPersons' value="{{person.Name}}"> {{person.Name}}</ion-select-option>
-            <ion-select-option value='new'>
+            <ion-select-option slot='start' value="none"> </ion-select-option>
+            <ion-select-option slot='end' *ngFor='let person of this.currentPersons' value="{{person.Name}}"> {{person.Name}}
+            </ion-select-option>
+            <ion-select-option slot='start' value='new'>
                 <ion-icon name="add">New Person?</ion-icon>
             </ion-select-option>
         </ion-select>
@@ -37,6 +38,17 @@
         <ion-button (click)='onAddItemConfirmed()'>Add It!</ion-button>
     </ion-item>
 </ion-list>
+
+<ion-item>
+    <ion-label>Need to remove a person? </ion-label>
+    <ion-select value="none" id='peopleRemover'>
+        <ion-select-option slot='end' *ngFor='let person of this.currentPersons' value="{{person.Name}}"> {{person.Name}}
+        </ion-select-option>
+    </ion-select>
+    <ion-button (click)='removePerson()'>
+        Delete
+    </ion-button>
+</ion-item>
 
 
 

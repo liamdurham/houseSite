@@ -33,6 +33,20 @@ export class StorageService {
     localStorage.setItem('currentPersons',JSON.stringify(this.currentPersons));
   }
     
+  public removePerson(name)
+  {      
+    for(var  i = 0; i <  this.currentPersons.length; i ++) 
+    {
+        if (this.currentPersons[i].Name == name)
+        {
+            console.log('found em');
+            this.currentPersons.splice(i, 1);
+            return;
+        }
+    }
+    localStorage.setItem('currentPersons',JSON.stringify(this.currentPersons));
+  }    
+    
   public addItem(name, color, parent, assignedTo)
   {
         var date = new Date().toLocaleDateString();
