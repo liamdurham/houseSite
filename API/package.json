@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "johnny-five": "^1.4.0",
     "onoff": "^6.0.0",
+    "pdffiller": "0.0.11",
     "rpi-gpio": "^2.1.7"
   },
   "devDependencies": {},
