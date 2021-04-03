@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <title>heatmapthing</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+    <div class="demo-frame">
+        <div id="statusDiv">
+            Loading...
+        </div>
+        <button onclick='testOpen()'>open Garage</button>
+    </div>
+
+    <script>
+        // Make a request for a user with a given ID
+        // UUmMcNqVsMmoFzgDfxvmyWaGWOWKNJpc
+        var options = {
+            headers: {
+                token: 'UUmMcNqVsMmoFzgDfxvmyWaGWOWKNJpc'
+            }
+        };
+        var currentLoc = 'FIPS:37';
+
+        function testOpen() {
+            axios.get('https://www.ncdc.noaa.gov/cdo-web/api/v2//locations?limit=1000', options)
+                .then(function(response) {
+                    console.log(response);
+                    console.log(response.data.results[0]);
+                })
+                .catch(function(error) {
+
+                    console.log(error);
+                });
+        }
+        testOpen();
+
+    </script>
+
+</body>
+
+</html>

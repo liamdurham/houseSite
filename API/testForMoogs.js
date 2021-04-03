@@ -14,5 +14,4 @@ app.get('/open', (req, res) => {
     res.send(JSON.stringify({
         message: 'fuck off'
     }));
-}
 });
